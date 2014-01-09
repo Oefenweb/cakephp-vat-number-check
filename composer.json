@@ -1,0 +1,28 @@
+{
+  "name": "oefenweb/cakephp-vat-number-check",
+  "version": "0.0.1",
+  "description": "A VAT number check Plugin for CakePHP",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp", "vat number"
+  ],
+  "homepage": "http://github.com/Oefenweb/cakephp-vat-number-check",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oefenweb",
+			"homepage": "https://github.com/Oefenweb/cakephp-vat-number-check/contributors"
+    }
+  ],
+  "require": {
+		"php": ">=5.3.10",
+    "composer/installers": "*"
+  },
+  "support": {
+    "issues": "https://github.com/Oefenweb/cakephp-vat-number-check/issues",
+    "source": "https://github.com/Oefenweb/cakephp-vat-number-check"
+  },
+  "extra": {
+    "installer-name": "VatNumberCheck"
+  }
+}

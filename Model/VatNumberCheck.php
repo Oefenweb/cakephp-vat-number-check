@@ -1,0 +1,105 @@
+<?php
+App::uses('VatNumberCheckAppModel', 'VatNumberCheck.Model');
+App::uses('HttpSocket', 'Network/Http');
+
+/**
+ * VatNumberCheck Model
+ *
+ */
+class VatNumberCheck extends VatNumberCheckAppModel {
+
+/**
+ * Use table.
+ *
+ * @var mixed False or table name
+ */
+	public $useTable = false;
+
+/**
+ * Url to check vat numbers.
+ *
+ */
+	const CHECK_URL = 'http://ec.europa.eu/taxation_customs/vies/viesquer.do';
+
+/**
+ * Normalizes a VAT number.
+ *
+ * @param string $vatNumber A VAT number
+ * @return string A (normalized) VAT number
+ */
+	public function normalize($vatNumber) {
+		$vatNumber = strtoupper($vatNumber);
+		$vatNumber = preg_replace('/[^A-Z0-9]/', '', $vatNumber);
+
+		return $vatNumber;
+	}
+
+/**
+ * Splits a VAT number into querystring parameters.
+ *
+ * @param string $vatNumber A VAT number
+ * @return array Querystring parameters
+ */
+	public function toQueryString($vatNumber) {
+		$ms = (string)substr($vatNumber, 0, 2);
+		$iso = $ms;
+		$vat = (string)substr($vatNumber, 2);
+
+		return compact('ms', 'iso', 'vat');
+	}
+
+/**
+ * Constructs an url for a given vat number.
+ *
+ * @param string $vatNumber A VAT number
+ * @return string
+ */
+	public function constructUrl($vatNumber) {
+		$queryString = $this->toQueryString($vatNumber);
+		$queryString = http_build_query($queryString);
+
+		return self::CHECK_URL . '?' . $queryString;
+	}
+
+/**
+ *
+ * @param string $url An url
+ * @param string $config HttpSocket options
+ * @return boolean
+ */
+	public function getUrlContent($url, $config = array('timeout' => 1)) {
+		/* Get instance of HttpSocket
+		 * and set a really low timeout, because we don't want to wait
+		 */
+		$HttpSocket = new HttpSocket($config);
+
+		try {
+			$response = $HttpSocket->get($url);
+
+			if ($response->isOk()) {
+				return $response->body();
+			}
+		} catch (Exception $e) {
+		}
+
+		return false;
+	}
+
+/**
+ *
+ * @param string $vatNumber A VAT number
+ * @return boolean
+ * @throws InternalErrorException
+ */
+	public function check($vatNumber) {
+		$url = $this->constructUrl($vatNumber);
+		$urlContent = $this->getUrlContent($url);
+
+		if ($urlContent) {
+			return (strpos($urlContent, 'Yes, valid VAT number') !== false);
+		}
+
+		throw new InternalErrorException('Service unavailable');
+	}
+
+}

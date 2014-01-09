@@ -32,6 +32,9 @@ matrix:
 before_script:
   - git clone -b no-warnings-support-for-phpcs https://github.com/tersmitten/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
+  - ls && cd ../cakephp/app
+  - echo "CakePlugin::load('${PLUGIN_NAME}', array('routes' => true));" >> Config/bootstrap.php
+  - cd ../../${REPO_NAME} && ls
 
 script:
   - ../travis/script.sh

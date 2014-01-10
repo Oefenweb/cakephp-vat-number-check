@@ -62,15 +62,13 @@ class VatNumberCheck extends VatNumberCheckAppModel {
 	}
 
 /**
+ * Downloads a given url.
  *
  * @param string $url An url
- * @param string $config HttpSocket options
- * @return boolean
+ * @return mixed Request body on success (string) otherwise false (boolean)
  */
-	public function getUrlContent($url, $config = array('timeout' => 1)) {
-		/* Get instance of HttpSocket
-		 * and set a really low timeout, because we don't want to wait
-		 */
+	public function getUrlContent($url) {
+		$config = (array)Configure::read('VatNumberCheck.socketConfig');
 		$HttpSocket = new HttpSocket($config);
 
 		try {
@@ -86,6 +84,7 @@ class VatNumberCheck extends VatNumberCheckAppModel {
 	}
 
 /**
+ * Checks a given VAT number.
  *
  * @param string $vatNumber A VAT number
  * @return boolean

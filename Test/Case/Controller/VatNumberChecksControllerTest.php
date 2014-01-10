@@ -32,10 +32,10 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 			'/vat_number_check/vat_number_checks/check.json',
 			array('return' => 'contents', 'data' => $data, 'method' => 'post')
 		);
-		$expected = json_encode(array_merge($data, array('status' => 'ok')));
+		$expected = array_merge($data, array('status' => 'ok'));
 
 		// Test response body
-		$this->assertIdentical($expected, $result);
+		$this->assertIdentical($expected, json_decode($result, true));
 
 		$result = $VatNumberChecks->response->statusCode();
 		$expected = 200;
@@ -54,9 +54,9 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 			'/vat_number_check/vat_number_checks/check.json',
 			array('return' => 'contents')
 		);
-		$expected = json_encode(array_merge($data, array('status' => 'failure')));
+		$expected = array_merge($data, array('status' => 'failure'));
 
-		$this->assertIdentical($expected, $result);
+		$this->assertIdentical($expected, json_decode($result, true));
 
 		// Post request, incorrect vat
 
@@ -69,9 +69,9 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 			'/vat_number_check/vat_number_checks/check.json',
 			array('return' => 'contents', 'data' => $data, 'method' => 'post')
 		);
-		$expected = json_encode(array_merge($data, array('status' => 'failure')));
+		$expected = array_merge($data, array('status' => 'failure'));
 
-		$this->assertIdentical($expected, $result);
+		$this->assertIdentical($expected, json_decode($result, true));
 
 		// Post request, correct vat, timeout
 
@@ -88,10 +88,10 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 			'/vat_number_check/vat_number_checks/check.json',
 			array('return' => 'contents', 'data' => $data, 'method' => 'post')
 		);
-		$expected = json_encode(array_merge($data, array('status' => 'failure')));
+		$expected = array_merge($data, array('status' => 'failure'));
 
 		// Test response body
-		$this->assertIdentical($expected, $result);
+		$this->assertIdentical($expected, json_decode($result, true));
 
 		$result = $VatNumberChecks->response->statusCode();
 		$expected = 503;

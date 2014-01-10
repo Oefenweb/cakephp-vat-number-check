@@ -52,7 +52,7 @@ class VatNumberCheck extends VatNumberCheckAppModel {
  * Constructs an url for a given vat number.
  *
  * @param string $vatNumber A VAT number
- * @return string
+ * @return string An url
  */
 	public function constructUrl($vatNumber) {
 		$queryString = $this->toQueryString($vatNumber);
@@ -87,7 +87,7 @@ class VatNumberCheck extends VatNumberCheckAppModel {
  * Checks a given VAT number.
  *
  * @param string $vatNumber A VAT number
- * @return boolean
+ * @return boolean Valid or not
  * @throws InternalErrorException
  */
 	public function check($vatNumber) {

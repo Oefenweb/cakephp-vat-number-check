@@ -20,3 +20,25 @@ CakePlugin::load('VatNumberCheck', array('routes' => true));
 ```
 
 ## Usage
+
+### Model
+
+Normalizes a VAT number:
+
+```
+$vatNumber = $this->VatNumberCheck->normalize($vatNumber);
+```
+
+Checks a given VAT number:
+
+```
+$vatNumberValid = $this->VatNumberCheck->check($vatNumber);
+```
+
+### Helper
+
+Generates a VAT number check form field:
+
+```
+echo $this->VatNumberCheck->input('vat_number', array('label' => __('VAT number')));
+```

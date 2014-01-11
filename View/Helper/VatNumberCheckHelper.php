@@ -78,14 +78,16 @@ class VatNumberCheckHelper extends AppHelper {
 			/* jshint jquery:true */
 
 			jQuery.noConflict();
-			jQuery(document).ready(function ($) {
-				var options = {
-					elementSelector: '" . sprintf('input.%s', $this->_inputClass) . "',
-					checkUrl: '" . $checkUrl . "',
-					checkImages: " . json_encode($checkImages) . ",
-				};
-				var vatNumberCheck = new VatNumberCheck(options);
-			});
+			(function($) {
+				$(function () {
+					var options = {
+						elementSelector: '" . sprintf('input.%s', $this->_inputClass) . "',
+						checkUrl: '" . $checkUrl . "',
+						checkImages: " . json_encode($checkImages) . ",
+					};
+					var vatNumberCheck = new VatNumberCheck(options);
+				});
+			})(jQuery);
 		";
 
 		$this->Html->script(array(

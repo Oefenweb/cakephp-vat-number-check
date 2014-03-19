@@ -11,11 +11,11 @@
   "authors": [
     {
       "name": "Oefenweb",
-			"homepage": "https://github.com/Oefenweb/cakephp-vat-number-check/contributors"
+      "homepage": "https://github.com/Oefenweb/cakephp-vat-number-check/contributors"
     }
   ],
   "require": {
-		"php": ">=5.3.10",
+    "php": ">=5.3.10",
     "composer/installers": "*"
   },
   "support": {

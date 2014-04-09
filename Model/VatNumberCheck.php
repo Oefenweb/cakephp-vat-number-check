@@ -16,6 +16,13 @@ class VatNumberCheck extends VatNumberCheckAppModel {
 	public $useTable = false;
 
 /**
+ * The (translation) domain to be used for extracted validation messages in models.
+ *
+ * @var string
+ */
+	public $validationDomain = 'vat_number_check';
+
+/**
  * Url to check vat numbers.
  *
  */
@@ -98,7 +105,7 @@ class VatNumberCheck extends VatNumberCheckAppModel {
 			return (strpos($urlContent, 'Yes, valid VAT number') !== false);
 		}
 
-		throw new InternalErrorException('Service unavailable');
+		throw new InternalErrorException(__d('vat_number_check', 'Service unavailable'));
 	}
 
 }

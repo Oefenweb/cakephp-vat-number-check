@@ -17,6 +17,7 @@ class VatNumberChecksController extends VatNumberChecksAppController {
 	//public $autoRender = false;
 
 /**
+ * Called before the controller action.
  *
  * @return void
  */
@@ -37,7 +38,8 @@ class VatNumberChecksController extends VatNumberChecksAppController {
 	}
 
 /**
- *
+ * Checks a given vat number (from POST data).
+ * 
  * @return void
  */
 	public function check() {

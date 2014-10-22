@@ -8,13 +8,12 @@ App::uses('VatNumberChecksAppController', 'VatNumberCheck.Controller');
  */
 class VatNumberChecksController extends VatNumberChecksAppController {
 
-	public $components = array('RequestHandler');
-
 /**
+ * An array of names of components to load.
  *
- * @var boolean
+ * @var array
  */
-	//public $autoRender = false;
+	public $components = array('RequestHandler');
 
 /**
  * Called before the controller action.
@@ -39,7 +38,7 @@ class VatNumberChecksController extends VatNumberChecksAppController {
 
 /**
  * Checks a given vat number (from POST data).
- * 
+ *
  * @return void
  */
 	public function check() {

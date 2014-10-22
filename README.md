@@ -1,6 +1,6 @@
 # VatNumberCheck plugin for CakePHP
 
-[![Build Status](https://travis-ci.org/Oefenweb/cakephp-vat-number-check.png?branch=master)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![Coverage Status](https://coveralls.io/repos/Oefenweb/cakephp-vat-number-check/badge.png)](https://coveralls.io/r/Oefenweb/cakephp-vat-number-check)
+[![Build Status](https://travis-ci.org/Oefenweb/cakephp-vat-number-check.png?branch=master)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![Coverage Status](https://coveralls.io/repos/Oefenweb/cakephp-vat-number-check/badge.png)](https://coveralls.io/r/Oefenweb/cakephp-vat-number-check) [![Packagist downloads](http://img.shields.io/packagist/dt/Oefenweb/cakephp-vat-number-check.svg)](https://packagist.org/packages/oefenweb/cakephp-vat-number-check)
 
 ## Requirements
 

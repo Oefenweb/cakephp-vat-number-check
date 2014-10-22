@@ -94,7 +94,7 @@ class VatNumberCheck extends VatNumberCheckAppModel {
  * Checks a given VAT number.
  *
  * @param string $vatNumber A VAT number
- * @return boolean Valid or not
+ * @return bool Valid or not
  * @throws InternalErrorException
  */
 	public function check($vatNumber) {

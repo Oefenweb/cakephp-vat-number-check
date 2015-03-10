@@ -110,7 +110,7 @@ var VatNumberCheck = klass({
 	 * Changes the background image of a given element.
 	 *
 	 * @param {Object} element A DOM element
-	 * @param {String} image An image (url)
+	 * @param {string} image An image (url)
 	 */
 	_setBackground: function (element, image) {
 		var backgroundImage;

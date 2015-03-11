@@ -9,18 +9,21 @@ var VatNumberCheck = klass({
 	/**
 	 * A css class selector to trigger `check` logic.
 	 *
+	 * @type {string}
 	 */
 	elementSelector: '',
 
 	/**
 	 * An url to use for checking.
 	 *
+	 * @type {string}
 	 */
 	checkUrl: '',
 
 	/**
 	 * An object with (status) images to use as background after checking.
 	 *
+	 * @type {Object}
 	 */
 	checkImages: {},
 
@@ -49,6 +52,7 @@ var VatNumberCheck = klass({
 	 *
 	 *  Requests the check url and displays it's status.
 	 *
+	 * @access protected
 	 * @param {Object} event
 	 */
 	_check: function (event) {
@@ -71,6 +75,7 @@ var VatNumberCheck = klass({
 	/**
 	 * A request handler for `done`.
 	 *
+	 * @access protected
 	 * @param {Object} element A DOM element
 	 * @param {Object} result Request data
 	 */
@@ -91,6 +96,7 @@ var VatNumberCheck = klass({
 	/**
 	 * A request handler for `fail`.
 	 *
+	 * @access protected
 	 * @param {Object} element A DOM element
 	 */
 	_fail: function (element) {
@@ -100,6 +106,7 @@ var VatNumberCheck = klass({
 	/**
 	 * A request handler for `beforeSend`.
 	 *
+	 * @access protected
 	 * @param {Object} element A DOM element
 	 */
 	_beforeSend: function (element) {
@@ -109,6 +116,7 @@ var VatNumberCheck = klass({
 	/**
 	 * Changes the background image of a given element.
 	 *
+	 * @access protected
 	 * @param {Object} element A DOM element
 	 * @param {string} image An image (url)
 	 */

@@ -38,7 +38,7 @@ branches:
 
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
-  - ../travis/before_script.sh
+  - travis_wait ../travis/before_script.sh
 
 script:
   - ../travis/script.sh

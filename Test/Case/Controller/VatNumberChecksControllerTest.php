@@ -13,7 +13,7 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = [];
 
 /**
  * testCheck method
@@ -26,13 +26,13 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 		$VatNumberChecks = $this->generate('VatNumberCheck.VatNumberChecks');
 		$VatNumberChecks->VatNumberCheck = ClassRegistry::init('VatNumberCheck.VatNumberCheck');
 
-		$data = array('vatNumber' => 'NL820345672B01');
+		$data = ['vatNumber' => 'NL820345672B01'];
 
 		$result = $this->testAction(
 			'/vat_number_check/vat_number_checks/check.json',
-			array('return' => 'contents', 'data' => $data, 'method' => 'post')
+			['return' => 'contents', 'data' => $data, 'method' => 'post']
 		);
-		$expected = array_merge($data, array('status' => 'ok'));
+		$expected = array_merge($data, ['status' => 'ok']);
 
 		// Test response body
 		$this->assertIdentical($expected, json_decode($result, true));
@@ -48,13 +48,13 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 		$VatNumberChecks = $this->generate('VatNumberCheck.VatNumberChecks');
 		$VatNumberChecks->VatNumberCheck = ClassRegistry::init('VatNumberCheck.VatNumberCheck');
 
-		$data = array('vatNumber' => '');
+		$data = ['vatNumber' => ''];
 
 		$result = $this->testAction(
 			'/vat_number_check/vat_number_checks/check.json',
-			array('return' => 'contents')
+			['return' => 'contents']
 		);
-		$expected = array_merge($data, array('status' => 'failure'));
+		$expected = array_merge($data, ['status' => 'failure']);
 
 		$this->assertIdentical($expected, json_decode($result, true));
 
@@ -63,32 +63,32 @@ class VatNumberChecksControllerTest extends ControllerTestCase {
 		$VatNumberChecks = $this->generate('VatNumberCheck.VatNumberChecks');
 		$VatNumberChecks->VatNumberCheck = ClassRegistry::init('VatNumberCheck.VatNumberCheck');
 
-		$data = array('vatNumber' => 'NL820345672B02');
+		$data = ['vatNumber' => 'NL820345672B02'];
 
 		$result = $this->testAction(
 			'/vat_number_check/vat_number_checks/check.json',
-			array('return' => 'contents', 'data' => $data, 'method' => 'post')
+			['return' => 'contents', 'data' => $data, 'method' => 'post']
 		);
-		$expected = array_merge($data, array('status' => 'failure'));
+		$expected = array_merge($data, ['status' => 'failure']);
 
 		$this->assertIdentical($expected, json_decode($result, true));
 
 		// Post request, correct vat, timeout
 
-		$VatNumberChecks = $this->generate('VatNumberCheck.VatNumberChecks', array(
-			'models' => array(
-				'VatNumberCheck.VatNumberCheck' => array('getUrlContent')
-			)
-		));
+		$VatNumberChecks = $this->generate('VatNumberCheck.VatNumberChecks', [
+			'models' => [
+				'VatNumberCheck.VatNumberCheck' => ['getUrlContent']
+			]
+		]);
 		$VatNumberChecks->VatNumberCheck->expects($this->any())->method('getUrlContent')->will($this->returnValue(false));
 
-		$data = array('vatNumber' => 'NL820345672B01');
+		$data = ['vatNumber' => 'NL820345672B01'];
 
 		$result = $this->testAction(
 			'/vat_number_check/vat_number_checks/check.json',
-			array('return' => 'contents', 'data' => $data, 'method' => 'post')
+			['return' => 'contents', 'data' => $data, 'method' => 'post']
 		);
-		$expected = array_merge($data, array('status' => 'failure'));
+		$expected = array_merge($data, ['status' => 'failure']);
 
 		// Test response body
 		$this->assertIdentical($expected, json_decode($result, true));

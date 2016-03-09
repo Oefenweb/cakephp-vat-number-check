@@ -13,7 +13,7 @@ class VatNumberCheckTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array();
+	public $fixtures = [];
 
 /**
  * setUp method
@@ -84,7 +84,7 @@ class VatNumberCheckTest extends CakeTestCase {
 
 		$vatNumber = 'NL820345672B01';
 		$result = $this->VatNumberCheck->toQueryString($vatNumber);
-		$expected = array('ms' => 'NL', 'iso' => 'NL', 'vat' => '820345672B01');
+		$expected = ['ms' => 'NL', 'iso' => 'NL', 'vat' => '820345672B01'];
 
 		$this->assertIdentical($expected, $result);
 
@@ -92,7 +92,7 @@ class VatNumberCheckTest extends CakeTestCase {
 
 		$vatNumber = 'NL';
 		$result = $this->VatNumberCheck->toQueryString($vatNumber);
-		$expected = array('ms' => 'NL', 'iso' => 'NL', 'vat' => '');
+		$expected = ['ms' => 'NL', 'iso' => 'NL', 'vat' => ''];
 
 		$this->assertIdentical($expected, $result);
 	}
@@ -184,7 +184,7 @@ class VatNumberCheckTest extends CakeTestCase {
 	public function testCheckException() {
 		// Simulate a timeout of `VatNumberCheck::getUrlContent`
 
-		$VatNumberCheck = $this->getMockForModel('VatNumberCheck', array('getUrlContent'));
+		$VatNumberCheck = $this->getMockForModel('VatNumberCheck', ['getUrlContent']);
 		$VatNumberCheck->expects($this->any())->method('getUrlContent')->will($this->returnValue(false));
 
 		$vatNumber = 'NL820345672B01';

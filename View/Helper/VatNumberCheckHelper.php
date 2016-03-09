@@ -16,7 +16,7 @@ class VatNumberCheckHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array('Html', 'Form');
+	public $helpers = ['Html', 'Form'];
 
 /**
  * The number of times this helper is called
@@ -41,13 +41,13 @@ class VatNumberCheckHelper extends AppHelper {
  * @param array $options Each type of input takes different options.
  * @return string Html output for a form field
  */
-	public function input($fieldName, $options = array()) {
+	public function input($fieldName, $options = []) {
 		$this->_helperCount += 1;
 		if ($this->_helperCount === 1) {
 			$this->_addJs();
 		}
 
-		$options = array_merge($options, array('type' => 'text'));
+		$options = array_merge($options, ['type' => 'text']);
 
 		$class = $this->_inputClass;
 		if (empty($options['class'])) {
@@ -65,14 +65,14 @@ class VatNumberCheckHelper extends AppHelper {
  * @return void
  */
 	protected function _addJs() {
-		$checkUrl = $this->Html->url(array(
+		$checkUrl = $this->Html->url([
 			'plugin' => 'vat_number_check', 'controller' => 'vat_number_checks', 'action' => 'check', 'ext' => 'json'
-		));
-		$checkImages = array(
+		]);
+		$checkImages = [
 			'ok' => $this->Html->url('/vat_number_check/img/ok.png'),
 			'failure' => $this->Html->url('/vat_number_check/img/failure.png'),
 			'serviceUnavailable' => $this->Html->url('/vat_number_check/img/service-unavailable.png'),
-		);
+		];
 
 		$script = "
 			/* jshint jquery:true */
@@ -90,12 +90,12 @@ class VatNumberCheckHelper extends AppHelper {
 			})(jQuery);
 		";
 
-		$this->Html->script(array(
+		$this->Html->script([
 			'https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
 			'VatNumberCheck.klass.min',
 			'VatNumberCheck.vat_number_check'
-		), array('inline' => false, 'once' => true));
-		$this->Html->scriptBlock($script, array('inline' => false));
+		], ['inline' => false, 'once' => true]);
+		$this->Html->scriptBlock($script, ['inline' => false]);
 	}
 
 }

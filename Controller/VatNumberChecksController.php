@@ -13,7 +13,7 @@ class VatNumberChecksController extends VatNumberChecksAppController {
  *
  * @var array
  */
-	public $components = array('RequestHandler');
+	public $components = ['RequestHandler'];
 
 /**
  * Called before the controller action.
@@ -23,7 +23,7 @@ class VatNumberChecksController extends VatNumberChecksAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		if (in_array($this->request->action, array('check'), true)) {
+		if (in_array($this->request->action, ['check'], true)) {
 			// Disable Security component checks
 			if ($this->Components->enabled('Security')) {
 				$this->Components->disable('Security');
@@ -45,11 +45,11 @@ class VatNumberChecksController extends VatNumberChecksAppController {
 		$vatNumber = $this->request->data('vatNumber');
 		$vatNumber = $this->VatNumberCheck->normalize($vatNumber);
 
-		$jsonData = array_merge(compact('vatNumber'), array('status' => 'failure'));
+		$jsonData = array_merge(compact('vatNumber'), ['status' => 'failure']);
 		try {
 			$vatNumberValid = $this->VatNumberCheck->check($vatNumber);
 			if ($vatNumberValid) {
-				$jsonData = array_merge(compact('vatNumber'), array('status' => 'ok'));
+				$jsonData = array_merge(compact('vatNumber'), ['status' => 'ok']);
 			}
 		} catch (InternalErrorException $e) {
 			$this->response->statusCode(503);

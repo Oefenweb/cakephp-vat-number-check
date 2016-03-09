@@ -47,16 +47,16 @@ class VatNumberCheckHelperTest extends CakeTestCase {
 		$this->assertPattern('/id\=\"FooBar\"/', $result);
 
 		// Test class property -> only + append
-		$options = array();
+		$options = [];
 		$result = $this->VatNumberCheck->input($fieldName, $options);
 		$this->assertPattern('/class\=\"vat-number-check\"/', $result);
 
-		$options = array('class' => 'foo-bar');
+		$options = ['class' => 'foo-bar'];
 		$result = $this->VatNumberCheck->input($fieldName, $options);
 		$this->assertPattern('/class\=\"foo-bar vat-number-check\"/', $result);
 
 		// Test input type
-		$options = array('type' => 'radio');
+		$options = ['type' => 'radio'];
 		$result = $this->VatNumberCheck->input($fieldName, $options);
 		$this->assertPattern('/type\=\"text\"/', $result);
 	}

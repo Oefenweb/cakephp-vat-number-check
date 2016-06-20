@@ -4,7 +4,7 @@
 
 /* jshint unused: true */
 var VatNumberCheck = klass({
-/* jshint unused: false */
+	/* jshint unused: false */
 
 	/**
 	 * A css class selector to trigger `check` logic.

@@ -14,11 +14,10 @@ env:
     - DB=mysql CAKE_VERSION=2
 
   matrix:
-    - DB=mysql CAKE_VERSION=2.4
-    - DB=mysql CAKE_VERSION=2.5
     - DB=mysql CAKE_VERSION=2.6
     - DB=mysql CAKE_VERSION=2.7
     - DB=mysql CAKE_VERSION=2.8
+    - DB=mysql CAKE_VERSION=2.9
 
 matrix:
   include:
@@ -33,13 +32,11 @@ matrix:
         - FOC_VALIDATE=1
   exclude:
     - php: 7
-      env: DB=mysql CAKE_VERSION=2.4
-    - php: 7
-      env: DB=mysql CAKE_VERSION=2.5
-    - php: 7
       env: DB=mysql CAKE_VERSION=2.6
     - php: 7
       env: DB=mysql CAKE_VERSION=2.7
+    - php: 7
+      env: DB=mysql CAKE_VERSION=2.8
 
 branches:
   only:

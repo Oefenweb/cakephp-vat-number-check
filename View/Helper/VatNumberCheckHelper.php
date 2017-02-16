@@ -90,7 +90,9 @@ class VatNumberCheckHelper extends AppHelper {
 			})(jQuery);
 		";
 
-		$this->Html->script(['jquery.min.js', 'VatNumberCheck.klass.min', 'VatNumberCheck.vat_number_check'], ['inline' => false, 'once' => true]);
+		$this->Html->script([
+			'VatNumberCheck.jquery.min', 'VatNumberCheck.klass.min', 'VatNumberCheck.vat_number_check'
+		], ['inline' => false, 'once' => true]);
 		$this->Html->scriptBlock($script, ['inline' => false]);
 	}
 

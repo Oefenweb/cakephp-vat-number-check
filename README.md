@@ -28,27 +28,21 @@ Ensure the plugin is loaded in `config/bootstrap.php` by calling:
 Plugin::load('VatNumberCheck');
 ```
 
-Ensure to configure the following lines in `config/bootstrap.php`:
-
-``` php
-<?php
-Configure::write('VatNumberCheck.salt', 'your-salt');
-Configure::write('VatNumberCheck.facebookAppId', 'your-facebook-app-id');
-```
-
 ## Usage
 
 ### Model
 
 Normalizes a VAT number:
 
-```
+```php
+<?php
 $vatNumber = $this->VatNumberCheck->normalize($vatNumber);
 ```
 
 Checks a given VAT number:
 
-```
+```php
+<?php
 $vatNumberValid = $this->VatNumberCheck->check($vatNumber);
 ```
 
@@ -56,6 +50,7 @@ $vatNumberValid = $this->VatNumberCheck->check($vatNumber);
 
 Generates a VAT number check form field:
 
-```
-echo $this->VatNumberCheck->input('vat_number', array('label' => __('VAT number')));
+```php
+<?php
+echo $this->VatNumberCheck->input('vat_number', ['label' => __('VAT number')]);
 ```

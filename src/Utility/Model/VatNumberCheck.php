@@ -16,7 +16,7 @@ class VatNumberCheck extends App
      * Url to check vat numbers.
      *
      */
-	const CHECK_URL = 'https://ec.europa.eu/taxation_customs/vies/viesquer.do';
+	const CHECK_URL = 'http://ec.europa.eu/taxation_customs/vies/vatResponse.html';
 
     /**
      * Normalizes a VAT number.
@@ -32,44 +32,38 @@ class VatNumberCheck extends App
 	}
 
     /**
-     * Splits a VAT number into querystring parameters.
+     * Splits a VAT number into query string (data) parameters.
      *
      * @param string $vatNumber A VAT number
-     * @return array Querystring parameters
+     * @return array Query string parameters
      */
 	public function toQueryString($vatNumber) {
-		$ms = (string)substr($vatNumber, 0, 2);
-		$iso = $ms;
-		$vat = (string)substr($vatNumber, 2);
+        $memberStateCode = (string)substr($vatNumber, 0, 2);
+		$number = (string)substr($vatNumber, 2);
+        $action = 'check';
+        $check = 'Verify';
 
-		return compact('ms', 'iso', 'vat');
-	}
-
-    /**
-     * Constructs an url for a given vat number.
-     *
-     * @param string $vatNumber A VAT number
-     * @return string An url
-     */
-	public function constructUrl($vatNumber) {
-		$queryString = $this->toQueryString($vatNumber);
-		$queryString = http_build_query($queryString);
-
-		return static::CHECK_URL . '?' . $queryString;
+		return compact(
+            'memberStateCode', 'number',
+            'traderName', 'traderStreet', 'traderPostalCode', 'traderCity',
+            'requesterMemberStateCode', 'requesterNumber',
+            'action', 'check'
+        );
 	}
 
     /**
      * Downloads a given url.
      *
      * @param string $url An url
-     * @return mixed Request body on success (string) otherwise false (boolean)
+     * @param string $data POST data
+     * @return bool|string Request body on success (string) otherwise false (boolean)
      */
-	public function getUrlContent($url) {
+	public function getUrlContent(string $url, array $data) {
 		$config = (array)Configure::read('VatNumberCheck.socketConfig');
 		$HttpSocket = new Client($config);
 
 		try {
-			$response = $HttpSocket->get($url);
+			$response = $HttpSocket->post($url, $data);
 
 			if ($response->isOk()) {
 				return $response->body;
@@ -88,9 +82,10 @@ class VatNumberCheck extends App
      * @throws \Cake\Network\Exception\InternalErrorException
      */
 	public function check($vatNumber) {
-		$url = $this->constructUrl($vatNumber);
-		$urlContent = $this->getUrlContent($url);
+		$url = static::CHECK_URL;
+		$data = $this->toQueryString($vatNumber);
 
+        $urlContent = $this->getUrlContent($url, $data);
 		if ($urlContent) {
 			return (strpos($urlContent, 'Yes, valid VAT number') !== false);
 		}

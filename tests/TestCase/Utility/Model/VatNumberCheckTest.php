@@ -4,6 +4,7 @@ namespace VatNumberCheck\Test\TestCase\Utility\Model;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\TestSuite\TestCase;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
+use InvalidArgumentException;
 
 /**
  * VatNumberCheck Test Case
@@ -45,6 +46,7 @@ class VatNumberCheckTest extends TestCase {
      * Tests `normalize`.
      *
      * @return void
+     * @todo Use data provider
      */
     public function testNormalize() {
         // Correct
@@ -88,60 +90,45 @@ class VatNumberCheckTest extends TestCase {
 
         $vatNumber = 'NL820345672B01';
         $actual = $this->VatNumberCheck->toQueryString($vatNumber);
-        $expected = ['ms' => 'NL', 'iso' => 'NL', 'vat' => '820345672B01'];
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals('NL', $actual['memberStateCode']);
+        $this->assertEquals('820345672B01', $actual['number']);
+        $this->assertTrue(count($actual) > 2);
 
         // Missing vat
 
         $vatNumber = 'NL';
         $actual = $this->VatNumberCheck->toQueryString($vatNumber);
-        $expected = ['ms' => 'NL', 'iso' => 'NL', 'vat' => ''];
 
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * Tests `constructUrl`.
-     *
-     * @return void
-     */
-    public function testConstructUrl() {
-        // Correct
-
-        $vatNumber = 'NL820345672B01';
-        $actual = $this->VatNumberCheck->constructUrl($vatNumber);
-        $expected = sprintf('%s?ms=%s&iso=%s&vat=%s', VatNumberCheck::CHECK_URL, 'NL', 'NL', '820345672B01');
-
-        $this->assertEquals($expected, $actual);
-
-        // Missing vat
-
-        $vatNumber = 'NL';
-        $actual = $this->VatNumberCheck->constructUrl($vatNumber);
-        $expected = sprintf('%s?ms=%s&iso=%s&vat=%s', VatNumberCheck::CHECK_URL, 'NL', 'NL', '');
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals('NL', $actual['memberStateCode']);
+        $this->assertEquals('', $actual['number']);
+        $this->assertTrue(count($actual) > 2);
     }
 
     /**
      * Tests `getUrlContent`.
      *
+     *  Correct
+     *
      * @return void
      */
-    public function testGetUrlContent() {
+    public function testGetUrlContentCorrect() {
         // Correct
-
-        $url = sprintf('%s?ms=%s&iso=%s&vat=%s', VatNumberCheck::CHECK_URL, 'NL', 'NL', '820345672B01');
-        $actual = $this->VatNumberCheck->getUrlContent($url);
-
+        $actual = $this->VatNumberCheck->getUrlContent(VatNumberCheck::CHECK_URL, []);
         $this->assertTextContains('<body>', $actual);
+    }
 
-        // Missing url
+    /**
+     * Tests `getUrlContent`.
+     *
+     *  Missing url
+     *
+     * @return void
+     */
+    public function testGetUrlContentMissingUrl() {
+        $this->expectException(InvalidArgumentException::class);
 
-        $url = '';
-        $actual = $this->VatNumberCheck->getUrlContent($url);
-
+        $actual = $this->VatNumberCheck->getUrlContent('', []);
         $this->assertFalse($actual);
     }
 
@@ -176,14 +163,15 @@ class VatNumberCheckTest extends TestCase {
     /**
      * Tests `check`.
      *
+     *  Simulate a timeout of `getUrlContent`
+     *
      * @return void
      */
     public function testCheckException() {
-        // Simulate a timeout of `getUrlContent`
         $this->expectException(InternalErrorException::class);
 
-        $VatNumberCheck = $this->createMock(VatNumberCheck::class);
-        $VatNumberCheck->expects($this->any())->method('getUrlContent')->will($this->returnValue(false));
+        $VatNumberCheck = $this->getMockBuilder(VatNumberCheck::class)->setMethods(['getUrlContent'])->getMock();
+        $VatNumberCheck->expects($this->any())->method('getUrlContent')->willReturn(false);
 
         $vatNumber = 'NL820345672B01';
         $VatNumberCheck->check($vatNumber);

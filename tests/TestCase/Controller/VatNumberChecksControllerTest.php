@@ -126,8 +126,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
 
         if (isset($this->_controller)) {
             if ($this->_controller->request->env('USE_MOCKED_GET_URL_CONTENT')) {
-                $VatNumberCheck = $this->createMock(VatNumberCheck::class);
-                $VatNumberCheck->expects($this->any())->method('getUrlContent')->will($this->returnValue(false));
+                $VatNumberCheck = $this->getMockBuilder(VatNumberCheck::class)->setMethods(['getUrlContent'])->getMock();
+                $VatNumberCheck->expects($this->any())->method('getUrlContent')->willReturn(false);
 
                 $this->_controller->VatNumberCheck = $VatNumberCheck;
             }

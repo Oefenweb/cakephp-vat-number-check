@@ -6,7 +6,7 @@ use Cake\View\View;
 use VatNumberCheck\View\Helper\VatNumberCheckHelper;
 
 /**
- * VatNumberCheckHelper Test Case
+ * VatNumberCheckHelper Test Case.
  *
  * @property \VatNumberCheck\Test\TestCase\View\Helper $VatNumberCheck
  */
@@ -36,7 +36,7 @@ class VatNumberCheckHelperTest extends TestCase {
     }
 
     /**
-     * testInput method
+     * Tests `input`.
      *
      * @return void
      */

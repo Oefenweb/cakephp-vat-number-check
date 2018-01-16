@@ -7,7 +7,7 @@ use Cake\Network\Exception\InternalErrorException;
 use VatNumberCheck\Utility\Model\App;
 
 /**
- * VatNumberCheck Model
+ * VatNumberCheck Model.
  *
  */
 class VatNumberCheck extends App
@@ -24,11 +24,8 @@ class VatNumberCheck extends App
      * @param string $vatNumber A VAT number
      * @return string A (normalized) VAT number
      */
-	public function normalize($vatNumber) {
-		$vatNumber = strtoupper($vatNumber);
-		$vatNumber = preg_replace('/[^A-Z0-9]/', '', $vatNumber);
-
-		return $vatNumber;
+	public function normalize(string $vatNumber): string {
+		return preg_replace('/[^A-Z0-9]/', '', strtoupper($vatNumber));
 	}
 
     /**
@@ -37,7 +34,7 @@ class VatNumberCheck extends App
      * @param string $vatNumber A VAT number
      * @return array Query string parameters
      */
-	public function toQueryString($vatNumber) {
+	public function toQueryString(string $vatNumber): array {
         $memberStateCode = (string)substr($vatNumber, 0, 2);
 		$number = (string)substr($vatNumber, 2);
         $action = 'check';
@@ -81,7 +78,7 @@ class VatNumberCheck extends App
      * @return bool Valid or not
      * @throws \Cake\Network\Exception\InternalErrorException
      */
-	public function check($vatNumber) {
+	public function check(string $vatNumber): bool {
 		$url = static::CHECK_URL;
 		$data = $this->toQueryString($vatNumber);
 

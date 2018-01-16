@@ -6,8 +6,9 @@ use Cake\Network\Exception\InternalErrorException;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
 
 /**
- * VatNumberChecks Controller
+ * VatNumberChecks Controller.
  *
+ * @property \Cake\Controller\Component\RequestHandlerComponent $RequestHandler
  * @property \TextRenderers\Utility\Model\VatNumberCheck $VatNumberCheck
  */
 class VatNumberChecksController extends AppController
@@ -37,7 +38,6 @@ class VatNumberChecksController extends AppController
      * @param \Cake\Event\Event $event The beforeRender event.
      * @return \Cake\Network\Response|null|void
      * @throws \Cake\Network\Exception\BadRequestException
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function beforeFilter(Event $event)
     {
@@ -64,12 +64,12 @@ class VatNumberChecksController extends AppController
      * @return void
      */
     public function check() {
-        $vatNumber = $this->request->data('vatNumber');
-        $vatNumber = $this->VatNumberCheck->normalize($vatNumber);
+        $vatNumber = (string)$this->request->data('vatNumber');
+        $normalizeVatNumber = $this->VatNumberCheck->normalize($vatNumber);
 
         $jsonData = array_merge(compact('vatNumber'), ['status' => 'failure']);
         try {
-            $vatNumberValid = $this->VatNumberCheck->check($vatNumber);
+            $vatNumberValid = $this->VatNumberCheck->check($normalizeVatNumber);
             if ($vatNumberValid) {
                 $jsonData = array_merge(compact('vatNumber'), ['status' => 'ok']);
             }

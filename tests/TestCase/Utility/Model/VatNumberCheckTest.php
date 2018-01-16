@@ -7,14 +7,14 @@ use VatNumberCheck\Utility\Model\VatNumberCheck;
 use InvalidArgumentException;
 
 /**
- * VatNumberCheck Test Case
+ * VatNumberCheck Test Case.
  *
  * @property \VatNumberCheck\Utility\Model\VatNumberCheck $VatNumberCheck
  */
 class VatNumberCheckTest extends TestCase {
 
     /**
-     * Fixtures
+     * Fixtures.
      *
      * @var array
      */
@@ -46,74 +46,66 @@ class VatNumberCheckTest extends TestCase {
      * Tests `normalize`.
      *
      * @return void
-     * @todo Use data provider
+     * @dataProvider normalizeProvider
      */
-    public function testNormalize() {
-        // Correct
-
-        $vatNumber = 'NL820345672B01';
+    public function testNormalize($vatNumber, $expected) {
         $actual = $this->VatNumberCheck->normalize($vatNumber);
-        $expected = 'NL820345672B01';
-
         $this->assertEquals($expected, $actual);
+    }
 
-        // To upper case
-
-        $vatNumber = 'NL820345672b01';
-        $actual = $this->VatNumberCheck->normalize($vatNumber);
-        $expected = 'NL820345672B01';
-
-        $this->assertEquals($expected, $actual);
-
-        // Removal of non-alphanumeric
-
-        $vatNumber = 'NL820345672 B01';
-        $actual = $this->VatNumberCheck->normalize($vatNumber);
-        $expected = 'NL820345672B01';
-
-        $this->assertEquals($expected, $actual);
-
-        $vatNumber = 'NL820345672!B01';
-        $actual = $this->VatNumberCheck->normalize($vatNumber);
-        $expected = 'NL820345672B01';
-
-        $this->assertEquals($expected, $actual);
+    /**
+     * Data provider for `testNormalize`.
+     *
+     * @return array
+     */
+    public function normalizeProvider(): array {
+        return [
+            // Correct
+            ['NL820345672B01', 'NL820345672B01'],
+            // To upper case
+            ['NL820345672b01', 'NL820345672B01'],
+            // Removal of non-alphanumeric
+            ['NL820345672 B01', 'NL820345672B01'],
+            ['NL820345672!B01', 'NL820345672B01'],
+        ];
     }
 
     /**
      * Tests `toQueryString`.
      *
      * @return void
+     * @dataProvider toQueryStringProvider
      */
-    public function testToQueryString() {
-        // Correct
-
-        $vatNumber = 'NL820345672B01';
+    public function testToQueryString($vatNumber, $memberStateCode, $number) {
         $actual = $this->VatNumberCheck->toQueryString($vatNumber);
 
-        $this->assertEquals('NL', $actual['memberStateCode']);
-        $this->assertEquals('820345672B01', $actual['number']);
+        $this->assertEquals($memberStateCode, $actual['memberStateCode']);
+        $this->assertEquals($number, $actual['number']);
         $this->assertTrue(count($actual) > 2);
+    }
 
-        // Missing vat
-
-        $vatNumber = 'NL';
-        $actual = $this->VatNumberCheck->toQueryString($vatNumber);
-
-        $this->assertEquals('NL', $actual['memberStateCode']);
-        $this->assertEquals('', $actual['number']);
-        $this->assertTrue(count($actual) > 2);
+    /**
+     * Data provider for `testToQueryString`.
+     *
+     * @return array
+     */
+    public function toQueryStringProvider(): array {
+        return [
+            // Correct
+            ['NL820345672B01', 'NL', '820345672B01'],
+            // Mssing VAT
+            ['NL', 'NL', ''],
+        ];
     }
 
     /**
      * Tests `getUrlContent`.
      *
-     *  Correct
+     *  Correct.
      *
      * @return void
      */
     public function testGetUrlContentCorrect() {
-        // Correct
         $actual = $this->VatNumberCheck->getUrlContent(VatNumberCheck::CHECK_URL, []);
         $this->assertTextContains('<body>', $actual);
     }
@@ -121,7 +113,7 @@ class VatNumberCheckTest extends TestCase {
     /**
      * Tests `getUrlContent`.
      *
-     *  Missing url
+     *  Missing url.
      *
      * @return void
      */
@@ -136,28 +128,27 @@ class VatNumberCheckTest extends TestCase {
      * Tests `check`.
      *
      * @return void
+     * @dataProvider checkProvider
      */
-    public function testCheck() {
-        // Correct
-
-        $vatNumber = 'NL820345672B01';
+    public function testCheck($vatNumber, $expected) {
         $actual = $this->VatNumberCheck->check($vatNumber);
+        $this->assertEquals($expected, $actual);
+    }
 
-        $this->assertTrue($actual);
-
-        // Incorrect vat
-
-        $vatNumber = 'NL820345672B02';
-        $actual = $this->VatNumberCheck->check($vatNumber);
-
-        $this->assertFalse($actual);
-
-        // Empty vat
-
-        $vatNumber = '';
-        $actual = $this->VatNumberCheck->check($vatNumber);
-
-        $this->assertFalse($actual);
+    /**
+     * Data provider for `testCheck`.
+     *
+     * @return array
+     */
+    public function checkProvider(): array {
+        return [
+            // Correct
+            ['NL820345672B01', true],
+            // Incorrect VAT
+            ['NL820345672B02', false],
+            // Empty VAT
+            ['', false],
+        ];
     }
 
     /**

@@ -4,10 +4,10 @@ namespace VatNumberCheck\View\Helper;
 use Cake\View\Helper;
 
 /**
- * VatNumberCheck Helper
+ * VatNumberCheck Helper.
  *
- * @property Cake\View\Helper\HtmlHelper $Html
  * @property Cake\View\Helper\FormHelper $Form
+ * @property Cake\View\Helper\HtmlHelper $Html
  * @property Cake\View\Helper\UrlHelper $Url
  */
 class VatNumberCheckHelper extends Helper {
@@ -20,7 +20,7 @@ class VatNumberCheckHelper extends Helper {
     public $helpers = ['Html', 'Form', 'Url'];
 
     /**
-     * The number of times this helper is called
+     * The number of times this helper is called.
      *
      * @var int
      */
@@ -38,11 +38,11 @@ class VatNumberCheckHelper extends Helper {
      *
      *  See `FormHelper::input`.
      *
-     * @param string $fieldName This should be "Modelname.fieldname"
-     * @param array $options Each type of input takes different options.
+     * @param string $fieldName This should be `Modelname.fieldname`
+     * @param array $options Each type of input takes different options
      * @return string Html output for a form field
      */
-    public function input($fieldName, $options = []) {
+    public function input(string $fieldName, array $options = []): string {
         $this->_helperCount += 1;
         if ($this->_helperCount === 1) {
             $this->_addJs();

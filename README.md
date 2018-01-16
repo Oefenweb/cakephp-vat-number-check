@@ -2,21 +2,38 @@
 
 [![Build Status](https://travis-ci.org/Oefenweb/cakephp-vat-number-check.png?branch=master)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![PHP 7 ready](http://php7ready.timesplinter.ch/Oefenweb/cakephp-vat-number-check/badge.svg)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![Coverage Status](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check/branch/master/graph/badge.svg)](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check) [![Packagist downloads](http://img.shields.io/packagist/dt/Oefenweb/cakephp-vat-number-check.svg)](https://packagist.org/packages/oefenweb/cakephp-vat-number-check) [![Code Climate](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check/badges/gpa.svg)](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check)
 
+The VatNumberCheck plugin provides the tools to generate social media links (Helper) and handle them (Controller).
+
 ## Requirements
 
-* CakePHP 2.6.0 or greater.
-* PHP 5.4.16 or greater.
+* CakePHP 3.5.* or greater.
+* PHP 7.1.0 or greater.
 
 ## Installation
 
-Clone/Copy the files in this directory into `app/Plugin/VatNumberCheck`
+Clone/Copy the files in this directory into `plugin/VatNumberCheck`
+
+```sh
+git@github.com:Oefenweb/cakephp-vat-number-check.git plugin/VatNumberCheck;
+```
+
+Or even better, use `composer`.
 
 ## Configuration
 
-Ensure the plugin is loaded in `app/Config/bootstrap.php` by calling:
+Ensure the plugin is loaded in `config/bootstrap.php` by calling:
 
+```php
+<?php
+Plugin::load('VatNumberCheck');
 ```
-CakePlugin::load('VatNumberCheck', array('routes' => true));
+
+Ensure to configure the following lines in `config/bootstrap.php`:
+
+``` php
+<?php
+Configure::write('VatNumberCheck.salt', 'your-salt');
+Configure::write('VatNumberCheck.facebookAppId', 'your-facebook-app-id');
 ```
 
 ## Usage

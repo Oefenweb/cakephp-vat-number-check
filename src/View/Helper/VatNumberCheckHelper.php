@@ -10,7 +10,8 @@ use Cake\View\Helper;
  * @property Cake\View\Helper\HtmlHelper $Html
  * @property Cake\View\Helper\UrlHelper $Url
  */
-class VatNumberCheckHelper extends Helper {
+class VatNumberCheckHelper extends Helper
+{
 
     /**
      * An array of names of helpers to load.
@@ -42,7 +43,8 @@ class VatNumberCheckHelper extends Helper {
      * @param array $options Each type of input takes different options
      * @return string Html output for a form field
      */
-    public function input(string $fieldName, array $options = []): string {
+    public function input(string $fieldName, array $options = []): string
+    {
         $this->_helperCount += 1;
         if ($this->_helperCount === 1) {
             $this->_addJs();
@@ -65,7 +67,8 @@ class VatNumberCheckHelper extends Helper {
      *
      * @return void
      */
-    protected function _addJs() {
+    protected function _addJs()
+    {
         $checkUrl = $this->Url->build([
             'plugin' => 'VatNumberCheck', 'controller' => 'VatNumberChecks', 'action' => 'check', '_ext' => 'json'
         ]);

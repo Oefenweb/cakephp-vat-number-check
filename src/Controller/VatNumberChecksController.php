@@ -63,7 +63,8 @@ class VatNumberChecksController extends AppController
      *
      * @return void
      */
-    public function check() {
+    public function check()
+    {
         $vatNumber = (string)$this->request->data('vatNumber');
         $normalizeVatNumber = $this->VatNumberCheck->normalize($vatNumber);
 

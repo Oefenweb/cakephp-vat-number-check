@@ -9,7 +9,8 @@ use VatNumberCheck\Utility\Model\VatNumberCheck;
  *
  * @property \VatNumberCheck\Controller\VatNumberChecksController $VatNumberChecks
  */
-class VatNumberChecksControllerTest extends IntegrationTestCase {
+class VatNumberChecksControllerTest extends IntegrationTestCase
+{
 
     /**
      * Fixtures.
@@ -23,7 +24,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
      *
      * @return void
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->enableCsrfToken();
@@ -37,7 +39,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
      *
      * @return void
      */
-    public function testCheckPostCorrectVat() {
+    public function testCheckPostCorrectVat()
+    {
         $data = ['vatNumber' => 'NL820345672B01'];
         $this->post('/vat_number_check/vat_number_checks/check.json', $data);
 
@@ -55,7 +58,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
      *
      * @return void
      */
-    public function testCheckGet() {
+    public function testCheckGet()
+    {
         $data = ['vatNumber' => ''];
         $this->get('/vat_number_check/vat_number_checks/check.json', $data);
 
@@ -73,7 +77,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
      *
      * @return void
      */
-    public function testCheckPostIncorrectVat() {
+    public function testCheckPostIncorrectVat()
+    {
         $data = ['vatNumber' => 'NL820345672B02'];
         $this->post('/vat_number_check/vat_number_checks/check.json', $data);
 
@@ -91,7 +96,8 @@ class VatNumberChecksControllerTest extends IntegrationTestCase {
      *
      * @return void
      */
-    public function testCheckPostCorrectVatTimeout() {
+    public function testCheckPostCorrectVatTimeout()
+    {
         // Ugly, but I don't see any other way
         $this->configRequest(['environment' => ['USE_MOCKED_GET_URL_CONTENT' => true]]);
 

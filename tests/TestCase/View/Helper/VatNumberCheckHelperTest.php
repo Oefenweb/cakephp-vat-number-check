@@ -10,14 +10,16 @@ use VatNumberCheck\View\Helper\VatNumberCheckHelper;
  *
  * @property \VatNumberCheck\Test\TestCase\View\Helper $VatNumberCheck
  */
-class VatNumberCheckHelperTest extends TestCase {
+class VatNumberCheckHelperTest extends TestCase
+{
 
     /**
      * setUp method
      *
      * @return void
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $View = new View();
@@ -29,7 +31,8 @@ class VatNumberCheckHelperTest extends TestCase {
      *
      * @return void
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         unset($this->VatNumberCheck);
 
         parent::tearDown();
@@ -40,7 +43,8 @@ class VatNumberCheckHelperTest extends TestCase {
      *
      * @return void
      */
-    public function testInput() {
+    public function testInput()
+    {
         $fieldName = 'Foo.bar';
         $actual = $this->VatNumberCheck->input($fieldName);
 

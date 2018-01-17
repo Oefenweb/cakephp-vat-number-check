@@ -3,15 +3,16 @@ namespace VatNumberCheck\Test\TestCase\Utility\Model;
 
 use Cake\Network\Exception\InternalErrorException;
 use Cake\TestSuite\TestCase;
-use VatNumberCheck\Utility\Model\VatNumberCheck;
 use InvalidArgumentException;
+use VatNumberCheck\Utility\Model\VatNumberCheck;
 
 /**
  * VatNumberCheck Test Case.
  *
  * @property \VatNumberCheck\Utility\Model\VatNumberCheck $VatNumberCheck
  */
-class VatNumberCheckTest extends TestCase {
+class VatNumberCheckTest extends TestCase
+{
 
     /**
      * Fixtures.
@@ -25,7 +26,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return void
      */
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->VatNumberCheck = new VatNumberCheck();
@@ -36,7 +38,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return void
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         unset($this->VatNumberCheck);
 
         parent::tearDown();
@@ -48,7 +51,8 @@ class VatNumberCheckTest extends TestCase {
      * @return void
      * @dataProvider normalizeProvider
      */
-    public function testNormalize($vatNumber, $expected) {
+    public function testNormalize($vatNumber, $expected)
+    {
         $actual = $this->VatNumberCheck->normalize($vatNumber);
         $this->assertEquals($expected, $actual);
     }
@@ -58,7 +62,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return array
      */
-    public function normalizeProvider(): array {
+    public function normalizeProvider(): array
+    {
         return [
             // Correct
             ['NL820345672B01', 'NL820345672B01'],
@@ -76,7 +81,8 @@ class VatNumberCheckTest extends TestCase {
      * @return void
      * @dataProvider toQueryStringProvider
      */
-    public function testToQueryString($vatNumber, $memberStateCode, $number) {
+    public function testToQueryString($vatNumber, $memberStateCode, $number)
+    {
         $actual = $this->VatNumberCheck->toQueryString($vatNumber);
 
         $this->assertEquals($memberStateCode, $actual['memberStateCode']);
@@ -89,7 +95,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return array
      */
-    public function toQueryStringProvider(): array {
+    public function toQueryStringProvider(): array
+    {
         return [
             // Correct
             ['NL820345672B01', 'NL', '820345672B01'],
@@ -105,7 +112,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return void
      */
-    public function testGetUrlContentCorrect() {
+    public function testGetUrlContentCorrect()
+    {
         $actual = $this->VatNumberCheck->getUrlContent(VatNumberCheck::CHECK_URL, []);
         $this->assertTextContains('<body>', $actual);
     }
@@ -117,7 +125,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return void
      */
-    public function testGetUrlContentMissingUrl() {
+    public function testGetUrlContentMissingUrl()
+    {
         $this->expectException(InvalidArgumentException::class);
 
         $actual = $this->VatNumberCheck->getUrlContent('', []);
@@ -130,7 +139,8 @@ class VatNumberCheckTest extends TestCase {
      * @return void
      * @dataProvider checkProvider
      */
-    public function testCheck($vatNumber, $expected) {
+    public function testCheck($vatNumber, $expected)
+    {
         $actual = $this->VatNumberCheck->check($vatNumber);
         $this->assertEquals($expected, $actual);
     }
@@ -140,7 +150,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return array
      */
-    public function checkProvider(): array {
+    public function checkProvider(): array
+    {
         return [
             // Correct
             ['NL820345672B01', true],
@@ -158,7 +169,8 @@ class VatNumberCheckTest extends TestCase {
      *
      * @return void
      */
-    public function testCheckException() {
+    public function testCheckException()
+    {
         $this->expectException(InternalErrorException::class);
 
         $VatNumberCheck = $this->getMockBuilder(VatNumberCheck::class)->setMethods(['getUrlContent'])->getMock();

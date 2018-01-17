@@ -4,8 +4,8 @@
 set -e;
 set -o pipefail;
 #
-thisFile="$(readlink -f ${0})";
-thisFilePath="$(dirname ${thisFile})";
+# thisFile="$(readlink -f "${0}")";
+# thisFilePath="$(dirname "${thisFile}")";
 #
 composer install --no-ansi --no-progress --no-interaction --optimize-autoloader;
 
@@ -20,8 +20,3 @@ elif [ "${PHP_MD}" = '1' ]; then
 fi
 
 composer require "cakephp/cakephp:${CAKE_VERSION}"  --dev --no-ansi --no-progress --no-interaction;
-
-mkdir -p vendor/cakephp/cakephp/tests/test_app/config;
-cat <<'EOF' > vendor/cakephp/cakephp/tests/test_app/config/routes.php
-<?php
-EOF

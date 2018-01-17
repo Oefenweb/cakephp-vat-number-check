@@ -39,6 +39,7 @@ class VatNumberCheck extends App
     {
         $memberStateCode = (string)substr($vatNumber, 0, 2);
         $number = (string)substr($vatNumber, 2);
+        $traderName = $traderStreet = $traderPostalCode = $traderCity = $requesterMemberStateCode = $requesterNumber = '';
         $action = 'check';
         $check = 'Verify';
 

@@ -19,7 +19,9 @@
     },
     "require-dev": {
         "oefenweb/cakephp-codesniffer": "^3.0.0",
-        "phpunit/phpunit": "^5.7|^6.0"
+        "phpunit/phpunit": "^5.7|^6.0",
+        "phpmd/phpmd": "^2.6",
+        "sebastian/phpcpd": "^3.0"
     },
     "support": {
         "source": "https://github.com/Oefenweb/cakephp-vat-number-check",

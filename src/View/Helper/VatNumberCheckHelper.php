@@ -25,14 +25,14 @@ class VatNumberCheckHelper extends Helper
      *
      * @var int
      */
-    protected $_helperCount = 0;
+    protected $helperCount = 0;
 
     /**
      * The css class name to trigger `check` logic.
      *
      * @var string
      */
-    protected $_inputClass = 'vat-number-check';
+    protected $inputClass = 'vat-number-check';
 
     /**
      * Generates a vat number check form field.
@@ -45,14 +45,14 @@ class VatNumberCheckHelper extends Helper
      */
     public function input(string $fieldName, array $options = []): string
     {
-        $this->_helperCount += 1;
-        if ($this->_helperCount === 1) {
+        $this->helperCount += 1;
+        if ($this->helperCount === 1) {
             $this->_addJs();
         }
 
         $options = array_merge($options, ['type' => 'text']);
 
-        $class = $this->_inputClass;
+        $class = $this->inputClass;
         if (empty($options['class'])) {
             $options['class'] = $class;
         } else {
@@ -85,7 +85,7 @@ class VatNumberCheckHelper extends Helper
             (function($) {
                 $(function () {
                     var options = {
-                        elementSelector: '" . sprintf('input.%s', $this->_inputClass) . "',
+                        elementSelector: '" . sprintf('input.%s', $this->inputClass) . "',
                         checkUrl: '" . $checkUrl . "',
                         checkImages: " . json_encode($checkImages) . ",
                     };

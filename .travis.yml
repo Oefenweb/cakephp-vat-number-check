@@ -1,19 +1,18 @@
 language: php
 
+sudo: false
+
 php:
   - 7.0
   - 7.1
 
 env:
   global:
-    - REPO_NAME=cakephp-vat-number-check
-    - PLUGIN_NAME=VatNumberCheck
-    - REQUIRE=""
-    - CAKE_VERSION=3
+    - CAKE_VERSION=^3.0.0
 
   matrix:
-    - CAKE_VERSION=3.4
-    - CAKE_VERSION=3.5
+    - CAKE_VERSION=~3.4.0
+    - CAKE_VERSION=~3.5.0
 
 matrix:
   include:
@@ -40,14 +39,13 @@ branches:
     - 3.x
 
 before_script:
-  - git clone -b master https://github.com/Oefenweb/travis --depth 1 ../travis
-  - travis_wait ../travis/before_script.sh
+  - travis_wait ./.travis/before-script.sh
 
 script:
-  - ../travis/script.sh
+  - ./.travis/script.sh
 
 after_success:
-  - ../travis/after_success.sh
+  - ./.travis/after-success.sh
 
 notifications:
   email: false

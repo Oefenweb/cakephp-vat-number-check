@@ -49,6 +49,8 @@ matrix:
 branches:
   only:
     - master
+    - 2.x
+    - 3.x
 
 before_script:
   - git clone -b master https://github.com/Oefenweb/travis --depth 1 ../travis

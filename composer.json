@@ -1,27 +1,41 @@
 {
-	"name": "oefenweb/cakephp-vat-number-check",
-	"description": "A VAT number check Plugin for CakePHP",
-	"type": "cakephp-plugin",
-	"keywords": [
-		"cakephp", "vat number"
-	],
-	"homepage": "http://github.com/Oefenweb/cakephp-vat-number-check",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Oefenweb.nl BV team",
-			"homepage": "https://github.com/Oefenweb/cakephp-vat-number-check/contributors"
-		}
-	],
-	"require": {
-		"php": ">=5.4.16",
-		"composer/installers": "~1.0"
-	},
-	"support": {
-		"issues": "https://github.com/Oefenweb/cakephp-vat-number-check/issues",
-		"source": "https://github.com/Oefenweb/cakephp-vat-number-check"
-	},
-	"extra": {
-		"installer-name": "VatNumberCheck"
-	}
+    "name": "oefenweb/cakephp-vat-number-check",
+    "description": "A VAT number check Plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "keywords": [
+        "cakephp", "vat number"
+    ],
+    "homepage": "http://github.com/Oefenweb/cakephp-vat-number-check",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Oefenweb.nl BV team",
+            "homepage": "https://github.com/Oefenweb/cakephp-vat-number-check/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "oefenweb/cakephp-codesniffer": "^3.0.0",
+        "phpunit/phpunit": "^5.7|^6.0",
+        "phpmd/phpmd": "^2.6",
+        "sebastian/phpcpd": "^3.0"
+    },
+    "support": {
+        "source": "https://github.com/Oefenweb/cakephp-vat-number-check",
+        "issues": "https://github.com/Oefenweb/cakephp-vat-number-check/issues"
+    },
+    "autoload": {
+        "psr-4": {
+            "VatNumberCheck\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VatNumberCheck\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    }
 }

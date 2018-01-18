@@ -47,22 +47,21 @@ chance of keeping on top of things.
 ## Testcases and codesniffer
 
 VatNumberCheck tests requires [PHPUnit](http://www.phpunit.de/manual/current/en/installation.html)
-3.5 or higher. To run the testcases locally use the following command:
+5.7 or higher. To run the testcases locally use the following command:
 
-    ./lib/Cake/Console/cake test VatNumberCheck AllVatNumberCheck
+    vendor/bin/phpunit vendor/oefenweb/cakephp-vat-number-check/tests/
 
 To run the sniffs for CakePHP coding standards
 
-    phpcs -p --extensions=php --standard=CakePHP ./app/Plugin/VatNumberCheck
+    vendor/bin/phpcs vendor/oefenweb/cakephp-vat-number-check --standard=CakePHPOefenweb --extensions=ctp,php
 
-Check the [cakephp-codesniffer](https://github.com/cakephp/cakephp-codesniffer)
-repository to setup the CakePHP standard. The README contains installation info
+Check the [cakephp-codesniffer](https://github.com/Oefenweb/cakephp-codesniffer)
+repository to setup the CakePHPOefenweb standard. The README contains installation info
 for the sniff and phpcs.
-
 
 # Additional Resources
 
-* [CakePHP coding standards](http://book.cakephp.org/2.0/en/contributing/cakephp-coding-conventions.html)
+* [CakePHP coding standards](https://book.cakephp.org/3.0/en/contributing/cakephp-coding-conventions.html)
 * [Bug tracker](https://github.com/Oefenweb/cakephp-vat-number-check/issues)
 * [General GitHub documentation](https://help.github.com/)
 * [GitHub pull request documentation](https://help.github.com/send-pull-requests/)

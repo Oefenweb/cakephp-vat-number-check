@@ -95,3 +95,8 @@ $config = [
 ConnectionManager::config('test', $config);
 
 Plugin::load('VatNumberCheck', ['path' => ROOT, 'routes' => true]);
+
+Cake\Routing\DispatcherFactory::add('Routing');
+Cake\Routing\DispatcherFactory::add('ControllerFactory');
+
+class_alias('VatNumberCheck\Test\TestApp\Controller\AppController', 'App\Controller\AppController');

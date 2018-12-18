@@ -48,11 +48,12 @@ class VatNumberCheck extends VatNumberCheckAppModel {
  * @return array Querystring parameters
  */
 	public function toQueryString($vatNumber) {
-		$ms = (string)substr($vatNumber, 0, 2);
-		$iso = $ms;
-		$vat = (string)substr($vatNumber, 2);
+		$memberStateCode = substr($vatNumber, 0, 2);
+		$number = substr($vatNumber, 2);
+		$action = 'check';
+		$check = 'Verify';
 
-		return compact('ms', 'iso', 'vat');
+		return compact('memberStateCode', 'number', 'action', 'check');
 	}
 
 /**

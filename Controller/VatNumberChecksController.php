@@ -16,6 +16,7 @@ class VatNumberChecksController extends VatNumberChecksAppController {
  */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
+		$this->constructClasses();
 		if (!$this->Components->attached('RequestHandler')
 		) {
 			$this->RequestHandler = $this->Components->load('RequestHandler');

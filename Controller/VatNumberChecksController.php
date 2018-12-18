@@ -9,11 +9,19 @@ App::uses('VatNumberChecksAppController', 'VatNumberCheck.Controller');
 class VatNumberChecksController extends VatNumberChecksAppController {
 
 /**
- * An array of names of components to load.
+ * Constructor
  *
- * @var array
+ * @param CakeRequest $request Request instance.
+ * @param CakeResponse $response Response instance.
  */
-	public $components = ['RequestHandler'];
+	public function __construct($request = null, $response = null) {
+		parent::__construct($request, $response);
+		$this->constructClasses();
+		if (!$this->Components->attached('RequestHandler')
+		) {
+			$this->RequestHandler = $this->Components->load('RequestHandler');
+		}
+	}
 
 /**
  * Called before the controller action.

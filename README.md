@@ -1,11 +1,15 @@
 # VatNumberCheck plugin for CakePHP
 
-[![Build Status](https://travis-ci.org/Oefenweb/cakephp-vat-number-check.png?branch=master)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![PHP 7 ready](http://php7ready.timesplinter.ch/Oefenweb/cakephp-vat-number-check/badge.svg)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check) [![Coverage Status](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check/branch/master/graph/badge.svg)](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check) [![Packagist downloads](http://img.shields.io/packagist/dt/Oefenweb/cakephp-vat-number-check.svg)](https://packagist.org/packages/oefenweb/cakephp-vat-number-check) [![Code Climate](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check/badges/gpa.svg)](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check)
+[![Build Status](https://travis-ci.org/Oefenweb/cakephp-vat-number-check.png?branch=master)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check)
+[![PHP 7 ready](http://php7ready.timesplinter.ch/Oefenweb/cakephp-vat-number-check/badge.svg)](https://travis-ci.org/Oefenweb/cakephp-vat-number-check)
+[![Coverage Status](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check/branch/master/graph/badge.svg)](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check)
+[![Packagist downloads](http://img.shields.io/packagist/dt/Oefenweb/cakephp-vat-number-check.svg)](https://packagist.org/packages/oefenweb/cakephp-vat-number-check)
+[![Code Climate](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check/badges/gpa.svg)](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check)
 
 ## Requirements
 
-* CakePHP 2.6.0 or greater.
-* PHP 5.4.16 or greater.
+* CakePHP 2.9.0 or greater.
+* PHP 7.0.0 or greater.
 
 ## Installation
 
@@ -16,7 +20,7 @@ Clone/Copy the files in this directory into `app/Plugin/VatNumberCheck`
 Ensure the plugin is loaded in `app/Config/bootstrap.php` by calling:
 
 ```
-CakePlugin::load('VatNumberCheck', array('routes' => true));
+CakePlugin::load('VatNumberCheck', ['routes' => true]);
 ```
 
 ## Usage
@@ -40,5 +44,5 @@ $vatNumberValid = $this->VatNumberCheck->check($vatNumber);
 Generates a VAT number check form field:
 
 ```
-echo $this->VatNumberCheck->input('vat_number', array('label' => __('VAT number')));
+echo $this->VatNumberCheck->input('vat_number', ['label' => __('VAT number')]);
 ```

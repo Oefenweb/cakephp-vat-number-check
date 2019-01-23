@@ -5,6 +5,7 @@
 [![Coverage Status](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check/branch/master/graph/badge.svg)](https://codecov.io/gh/Oefenweb/cakephp-vat-number-check)
 [![Packagist downloads](http://img.shields.io/packagist/dt/Oefenweb/cakephp-vat-number-check.svg)](https://packagist.org/packages/oefenweb/cakephp-vat-number-check)
 [![Code Climate](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check/badges/gpa.svg)](https://codeclimate.com/github/Oefenweb/cakephp-vat-number-check)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Oefenweb/cakephp-vat-number-check/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Oefenweb/cakephp-vat-number-check/?branch=master)
 
 ## Requirements
 

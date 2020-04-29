@@ -83,6 +83,10 @@ Cache::config([
     ],
 ]);
 
+Configure::write('Error', [
+    'errorLevel' => E_ALL & ~E_USER_DEPRECATED,
+]);
+
 if (!getenv('db_dsn')) {
     putenv('db_dsn=sqlite:///:memory:');
 }

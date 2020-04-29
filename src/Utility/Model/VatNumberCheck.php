@@ -16,7 +16,7 @@ class VatNumberCheck extends App
      * Url to check vat numbers.
      *
      */
-    const CHECK_URL = 'http://ec.europa.eu/taxation_customs/vies/vatResponse.html';
+    const CHECK_URL = 'https://ec.europa.eu/taxation_customs/vies/vatResponse.html';
 
     /**
      * Normalizes a VAT number.

@@ -70,7 +70,10 @@ class VatNumberCheckHelper extends Helper
     protected function _addJs()
     {
         $checkUrl = $this->Url->build([
-            'plugin' => 'VatNumberCheck', 'controller' => 'VatNumberChecks', 'action' => 'check', '_ext' => 'json'
+            'plugin' => 'VatNumberCheck',
+            'controller' => 'VatNumberChecks',
+            'action' => 'check',
+            '_ext' => 'json',
         ]);
         $checkImages = [
             'ok' => $this->Url->build('/vat_number_check/img/ok.png'),
@@ -95,7 +98,9 @@ class VatNumberCheckHelper extends Helper
         ";
 
         $this->Html->script([
-            'VatNumberCheck.jquery.min', 'VatNumberCheck.klass.min', 'VatNumberCheck.vat_number_check'
+            'VatNumberCheck.jquery.min',
+            'VatNumberCheck.klass.min',
+            'VatNumberCheck.vat_number_check',
         ], ['inline' => false, 'once' => true]);
         $this->Html->scriptBlock($script, ['inline' => false]);
     }

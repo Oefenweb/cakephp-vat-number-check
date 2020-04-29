@@ -58,29 +58,29 @@ Configure::write('App', [
         'plugins' => [TEST_APP . 'Plugin' . DS],
         'templates' => [APP . 'Template' . DS],
         'locales' => [APP . 'Locale' . DS],
-    ]
+    ],
 ]);
 
 Configure::write('Session', [
-    'defaults' => 'php'
+    'defaults' => 'php',
 ]);
 
 Cache::config([
     '_cake_core_' => [
         'engine' => 'File',
         'prefix' => 'cake_core_',
-        'serialize' => true
+        'serialize' => true,
     ],
     '_cake_model_' => [
         'engine' => 'File',
         'prefix' => 'cake_model_',
-        'serialize' => true
+        'serialize' => true,
     ],
     'default' => [
         'engine' => 'File',
         'prefix' => 'default_',
-        'serialize' => true
-    ]
+        'serialize' => true,
+    ],
 ]);
 
 if (!getenv('db_dsn')) {

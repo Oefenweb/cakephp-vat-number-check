@@ -3,7 +3,7 @@ namespace VatNumberCheck\Utility\Model;
 
 use Cake\Core\Configure;
 use Cake\Http\Client;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 
 /**
  * VatNumberCheck Model.

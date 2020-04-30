@@ -73,7 +73,7 @@ class VatNumberCheck extends App
             $response = $HttpSocket->post($url, $data);
 
             if ($response->isOk()) {
-                return $response->body;
+                return $response->getStringBody();
             }
         } catch (Exception $e) {
         }

@@ -59,7 +59,7 @@ class VatNumberCheckHelper extends Helper
             $options['class'] = sprintf('%s %s', $options['class'], $class);
         }
 
-        return $this->Form->input($fieldName, $options);
+        return $this->Form->control($fieldName, $options);
     }
 
     /**

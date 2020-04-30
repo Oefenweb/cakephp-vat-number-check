@@ -75,7 +75,7 @@ class VatNumberChecksController extends BaseController
                 $jsonData = array_merge(compact('vatNumber'), ['status' => 'ok']);
             }
         } catch (InternalErrorException $e) {
-            $this->response->withStatus(503);
+            $this->response = $this->response->withStatus(503);
         }
 
         $this->set(compact('jsonData'));

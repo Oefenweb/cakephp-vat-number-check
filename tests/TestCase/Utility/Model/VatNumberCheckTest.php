@@ -127,8 +127,6 @@ class VatNumberCheckTest extends TestCase
      */
     public function testGetUrlContentMissingUrl()
     {
-        $this->expectException(InvalidArgumentException::class);
-
         $actual = $this->VatNumberCheck->getUrlContent('', []);
         $this->assertFalse($actual);
     }

@@ -94,7 +94,7 @@ class VatNumberCheck
 
         $urlContent = $this->getUrlContent($url, $data);
         if ($urlContent) {
-            return (strpos($urlContent, 'Yes, valid VAT number') !== false);
+            return strpos($urlContent, 'Yes, valid VAT number') !== false;
         }
 
         throw new InternalErrorException(__d('vat_number_check', 'Service unavailable'));

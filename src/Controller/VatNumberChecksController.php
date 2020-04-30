@@ -17,7 +17,7 @@ class VatNumberChecksController extends BaseController
     /**
      * An array of names of components to load.
      *
-     * @var array
+     * @var array<int,string>
      */
     public $components = ['RequestHandler'];
 

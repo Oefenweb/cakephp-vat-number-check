@@ -1,5 +1,4 @@
 <?php
-
 namespace VatNumberCheck\View\Helper;
 
 use Cake\View\Helper;
@@ -17,7 +16,7 @@ class VatNumberCheckHelper extends Helper
     /**
      * An array of names of helpers to load.
      *
-     * @var array
+     * @var array<int,string>
      */
     public $helpers = ['Html', 'Form', 'Url'];
 
@@ -41,7 +40,7 @@ class VatNumberCheckHelper extends Helper
      *  See `FormHelper::input`.
      *
      * @param string $fieldName This should be `Modelname.fieldname`
-     * @param array $options Each type of input takes different options
+     * @param array<string,mixed> $options Each type of input takes different options
      * @return string Html output for a form field
      */
     public function input(string $fieldName, array $options = []): string

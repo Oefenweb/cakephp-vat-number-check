@@ -32,7 +32,7 @@ class VatNumberCheck
      * Splits a VAT number into query string (data) parameters.
      *
      * @param string $vatNumber A VAT number
-     * @return array Query string parameters
+     * @return array<string,string> Query string parameters
      */
     public function toQueryString(string $vatNumber): array
     {
@@ -60,7 +60,7 @@ class VatNumberCheck
      * Downloads a given url.
      *
      * @param string $url An url
-     * @param string $data POST data
+     * @param array<string,string> $data POST data
      * @return false|string Request body on success (string) otherwise false
      */
     public function getUrlContent(string $url, array $data)
@@ -85,7 +85,7 @@ class VatNumberCheck
      *
      * @param string $vatNumber A VAT number
      * @return bool Valid or not
-     * @throws \Cake\Network\Exception\InternalErrorException
+     * @throws \Cake\Http\Exception\InternalErrorException
      */
     public function check(string $vatNumber): bool
     {

@@ -1,3 +1,6 @@
 parameters:
     autoload_files:
         - tests/bootstrap.php
+    ignoreErrors:
+        - message: '#Cannot cast array\|string\|null to string.#'
+          path: src/Controller/VatNumberChecksController.php

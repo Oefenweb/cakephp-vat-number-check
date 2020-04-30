@@ -4,13 +4,12 @@ namespace VatNumberCheck\Utility\Model;
 use Cake\Core\Configure;
 use Cake\Http\Client;
 use Cake\Network\Exception\InternalErrorException;
-use VatNumberCheck\Utility\Model\App;
 
 /**
  * VatNumberCheck Model.
  *
  */
-class VatNumberCheck extends App
+class VatNumberCheck
 {
     /**
      * Url to check vat numbers.
@@ -62,7 +61,7 @@ class VatNumberCheck extends App
      *
      * @param string $url An url
      * @param string $data POST data
-     * @return bool|string Request body on success (string) otherwise false (boolean)
+     * @return false|string Request body on success (string) otherwise false
      */
     public function getUrlContent(string $url, array $data)
     {

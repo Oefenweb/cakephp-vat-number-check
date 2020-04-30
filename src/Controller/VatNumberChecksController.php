@@ -1,17 +1,18 @@
 <?php
 namespace VatNumberCheck\Controller;
 
+use Cake\Controller\Controller as BaseController;
 use Cake\Event\Event;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
 
 /**
  * VatNumberChecks Controller.
  *
  * @property \Cake\Controller\Component\RequestHandlerComponent $RequestHandler
- * @property \TextRenderers\Utility\Model\VatNumberCheck $VatNumberCheck
+ * @property \VatNumberCheck\Utility\Model\VatNumberCheck $VatNumberCheck
  */
-class VatNumberChecksController extends AppController
+class VatNumberChecksController extends BaseController
 {
     /**
      * An array of names of components to load.
@@ -36,14 +37,13 @@ class VatNumberChecksController extends AppController
      * Before action logic.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
-     * @return \Cake\Network\Response|null|void
-     * @throws \Cake\Network\Exception\BadRequestException
+     * @return \Cake\Http\Response|void
      */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
 
-        if (in_array($this->request->action, ['check'], true)) {
+        if (in_array($this->request->getParam('action'), ['check'], true)) {
             // Disable Security, Csrf component checks
             if ($this->components()->has('Security')) {
                 $this->components()->unload('Security');
@@ -53,7 +53,7 @@ class VatNumberChecksController extends AppController
             }
             // Allow action without authentication
             if ($this->components()->has('Auth')) {
-                $this->Auth->allow($this->request->action);
+                $this->Auth->allow($this->request->getParam('action'));
             }
         }
     }

@@ -54,7 +54,7 @@ class VatNumberChecksControllerTest extends TestCase
         $expected = array_merge($data, ['status' => 'ok']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -73,7 +73,7 @@ class VatNumberChecksControllerTest extends TestCase
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -92,7 +92,7 @@ class VatNumberChecksControllerTest extends TestCase
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -114,7 +114,7 @@ class VatNumberChecksControllerTest extends TestCase
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseFailure();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(503);
     }
 

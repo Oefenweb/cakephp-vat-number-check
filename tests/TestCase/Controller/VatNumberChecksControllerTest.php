@@ -13,8 +13,8 @@ use VatNumberCheck\Utility\Model\VatNumberCheck;
 class VatNumberChecksControllerTest extends TestCase
 {
     use IntegrationTestTrait{
-			controllerSpy as traitControllerSpy;
-		}
+        controllerSpy as traitControllerSpy;
+    }
 
     /**
      * Fixtures

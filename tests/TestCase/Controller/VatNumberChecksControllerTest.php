@@ -12,7 +12,9 @@ use VatNumberCheck\Utility\Model\VatNumberCheck;
  */
 class VatNumberChecksControllerTest extends TestCase
 {
-    use IntegrationTestTrait;
+    use IntegrationTestTrait{
+			controllerSpy as traitControllerSpy;
+		}
 
     /**
      * Fixtures
@@ -124,10 +126,10 @@ class VatNumberChecksControllerTest extends TestCase
      */
     public function controllerSpy($event, $controller = null)
     {
-        parent::controllerSpy($event, $controller);
+        $this->traitControllerSpy($event, $controller);
 
         if (isset($this->_controller)) {
-            if ($this->_controller->request->env('USE_MOCKED_GET_URL_CONTENT')) {
+            if ($this->_controller->request->getEnv('USE_MOCKED_GET_URL_CONTENT')) {
                 $VatNumberCheck = $this->getMockBuilder(VatNumberCheck::class)->setMethods(['getUrlContent'])->getMock();
                 $VatNumberCheck->expects($this->any())->method('getUrlContent')->willReturn(false);
 

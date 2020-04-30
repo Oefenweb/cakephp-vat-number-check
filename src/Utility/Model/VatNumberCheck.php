@@ -3,20 +3,19 @@ namespace VatNumberCheck\Utility\Model;
 
 use Cake\Core\Configure;
 use Cake\Http\Client;
-use Cake\Network\Exception\InternalErrorException;
-use VatNumberCheck\Utility\Model\App;
+use Cake\Http\Exception\InternalErrorException;
 
 /**
  * VatNumberCheck Model.
  *
  */
-class VatNumberCheck extends App
+class VatNumberCheck
 {
     /**
      * Url to check vat numbers.
      *
      */
-    const CHECK_URL = 'http://ec.europa.eu/taxation_customs/vies/vatResponse.html';
+    const CHECK_URL = 'https://ec.europa.eu/taxation_customs/vies/vatResponse.html';
 
     /**
      * Normalizes a VAT number.
@@ -33,7 +32,7 @@ class VatNumberCheck extends App
      * Splits a VAT number into query string (data) parameters.
      *
      * @param string $vatNumber A VAT number
-     * @return array Query string parameters
+     * @return array<string,string> Query string parameters
      */
     public function toQueryString(string $vatNumber): array
     {
@@ -61,8 +60,8 @@ class VatNumberCheck extends App
      * Downloads a given url.
      *
      * @param string $url An url
-     * @param string $data POST data
-     * @return bool|string Request body on success (string) otherwise false (boolean)
+     * @param array<string,string> $data POST data
+     * @return false|string Request body on success (string) otherwise false
      */
     public function getUrlContent(string $url, array $data)
     {
@@ -73,9 +72,9 @@ class VatNumberCheck extends App
             $response = $HttpSocket->post($url, $data);
 
             if ($response->isOk()) {
-                return $response->body;
+                return $response->getStringBody();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
         }
 
         return false;
@@ -86,7 +85,7 @@ class VatNumberCheck extends App
      *
      * @param string $vatNumber A VAT number
      * @return bool Valid or not
-     * @throws \Cake\Network\Exception\InternalErrorException
+     * @throws \Cake\Http\Exception\InternalErrorException
      */
     public function check(string $vatNumber): bool
     {
@@ -95,7 +94,7 @@ class VatNumberCheck extends App
 
         $urlContent = $this->getUrlContent($url, $data);
         if ($urlContent) {
-            return (strpos($urlContent, 'Yes, valid VAT number') !== false);
+            return strpos($urlContent, 'Yes, valid VAT number') !== false;
         }
 
         throw new InternalErrorException(__d('vat_number_check', 'Service unavailable'));

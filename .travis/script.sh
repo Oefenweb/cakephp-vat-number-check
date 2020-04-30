@@ -30,6 +30,10 @@ elif [ "${PHP_MD}" = '1' ]; then
     excludePathsJoined=${excludePathsJoined:1};
 
     vendor/bin/phpmd . text phpmd.xml --suffixes php --exclude "${excludePathsJoined}";
+elif [ "${PHP_STAN}" = '1' ]; then
+    vendor/bin/phpstan analyse -c phpstan.neon -l 7 src/;
+elif [ "${PHP_PHAN}" = '1' ]; then
+    vendor/bin/phan;
 elif [ "${PHP_COVERAGE}" = '1' ]; then
     vendor/bin/phpunit --coverage-clover=clover.xml;
 else

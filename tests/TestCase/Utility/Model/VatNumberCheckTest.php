@@ -1,7 +1,7 @@
 <?php
 namespace VatNumberCheck\Test\TestCase\Utility\Model;
 
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
@@ -127,8 +127,6 @@ class VatNumberCheckTest extends TestCase
      */
     public function testGetUrlContentMissingUrl()
     {
-        $this->expectException(InvalidArgumentException::class);
-
         $actual = $this->VatNumberCheck->getUrlContent('', []);
         $this->assertFalse($actual);
     }

@@ -3,32 +3,36 @@ language: php
 sudo: false
 
 php:
-  - 7.0
   - 7.1
+  - 7.2
+  - 7.3
+  - 7.4
 
 env:
   global:
-    - CAKE_VERSION=^3.0.0
-
-  matrix:
-    - CAKE_VERSION=~3.4.0
-    - CAKE_VERSION=~3.5.0
+    - CAKE_VERSION=^3.8.0
 
 matrix:
   include:
-    - php: 7.1
+    - php: 7.2
       env:
         - PHP_SYNTAX=1
-    - php: 7.1
+    - php: 7.2
       env:
         - PHP_CS=1
-    - php: 7.1
+    - php: 7.2
       env:
         - PHP_CPD=1
-    - php: 7.1
+    - php: 7.2
       env:
         - PHP_MD=1
-    - php: 7.1
+    - php: 7.2
+      env:
+        - PHP_STAN=1
+    - php: 7.2
+      env:
+        - PHP_PHAN=1
+    - php: 7.2
       env:
         - PHP_COVERAGE=1
 
@@ -39,16 +43,10 @@ branches:
     - 3.x
 
 before_script:
-  - travis_wait ./.travis/before-script.sh
+  - ./.travis/before-script.sh
 
 script:
   - ./.travis/script.sh
 
 after_success:
   - ./.travis/after-success.sh
-
-notifications:
-  email: false
-  hipchat:
-    rooms:
-      secure: B46Xvke4nkoN+ivLs0Ubn64rAKOQplqDwLoE9KZDJ6O0XxiAZIZoNXcrGovP+qAB8LHRbGZvOUG4u+YZt9I41bgBAuCM2wZTFJe85IzLjROLxlSXwKDH4tey31omYTSYFKm7Tg9Gi2a6hyGN/YDytiUlmJqUvElcN0EUfkXzxS4=

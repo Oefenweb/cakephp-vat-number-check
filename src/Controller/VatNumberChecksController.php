@@ -1,22 +1,23 @@
 <?php
 namespace VatNumberCheck\Controller;
 
+use Cake\Controller\Controller as BaseController;
 use Cake\Event\Event;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
 
 /**
  * VatNumberChecks Controller.
  *
  * @property \Cake\Controller\Component\RequestHandlerComponent $RequestHandler
- * @property \TextRenderers\Utility\Model\VatNumberCheck $VatNumberCheck
+ * @property \VatNumberCheck\Utility\Model\VatNumberCheck $VatNumberCheck
  */
-class VatNumberChecksController extends AppController
+class VatNumberChecksController extends BaseController
 {
     /**
      * An array of names of components to load.
      *
-     * @var array
+     * @var array<int,string>
      */
     public $components = ['RequestHandler'];
 
@@ -36,14 +37,13 @@ class VatNumberChecksController extends AppController
      * Before action logic.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
-     * @return \Cake\Network\Response|null|void
-     * @throws \Cake\Network\Exception\BadRequestException
+     * @return \Cake\Http\Response|void
      */
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
 
-        if (in_array($this->request->action, ['check'], true)) {
+        if (in_array($this->request->getParam('action'), ['check'], true)) {
             // Disable Security, Csrf component checks
             if ($this->components()->has('Security')) {
                 $this->components()->unload('Security');
@@ -53,7 +53,7 @@ class VatNumberChecksController extends AppController
             }
             // Allow action without authentication
             if ($this->components()->has('Auth')) {
-                $this->Auth->allow($this->request->action);
+                $this->Auth->allow($this->request->getParam('action'));
             }
         }
     }
@@ -65,7 +65,7 @@ class VatNumberChecksController extends AppController
      */
     public function check()
     {
-        $vatNumber = (string)$this->request->data('vatNumber');
+        $vatNumber = (string)$this->request->getData('vatNumber');
         $normalizeVatNumber = $this->VatNumberCheck->normalize($vatNumber);
 
         $jsonData = array_merge(compact('vatNumber'), ['status' => 'failure']);
@@ -75,7 +75,7 @@ class VatNumberChecksController extends AppController
                 $jsonData = array_merge(compact('vatNumber'), ['status' => 'ok']);
             }
         } catch (InternalErrorException $e) {
-            $this->response->statusCode(503);
+            $this->response = $this->response->withStatus(503);
         }
 
         $this->set(compact('jsonData'));

@@ -6,9 +6,9 @@ use Cake\View\Helper;
 /**
  * VatNumberCheck Helper.
  *
- * @property Cake\View\Helper\FormHelper $Form
- * @property Cake\View\Helper\HtmlHelper $Html
- * @property Cake\View\Helper\UrlHelper $Url
+ * @property \Cake\View\Helper\FormHelper $Form
+ * @property \Cake\View\Helper\HtmlHelper $Html
+ * @property \Cake\View\Helper\UrlHelper $Url
  */
 class VatNumberCheckHelper extends Helper
 {
@@ -16,7 +16,7 @@ class VatNumberCheckHelper extends Helper
     /**
      * An array of names of helpers to load.
      *
-     * @var array
+     * @var array<int,string>
      */
     public $helpers = ['Html', 'Form', 'Url'];
 
@@ -40,7 +40,7 @@ class VatNumberCheckHelper extends Helper
      *  See `FormHelper::input`.
      *
      * @param string $fieldName This should be `Modelname.fieldname`
-     * @param array $options Each type of input takes different options
+     * @param array<string,mixed> $options Each type of input takes different options
      * @return string Html output for a form field
      */
     public function input(string $fieldName, array $options = []): string
@@ -59,7 +59,7 @@ class VatNumberCheckHelper extends Helper
             $options['class'] = sprintf('%s %s', $options['class'], $class);
         }
 
-        return $this->Form->input($fieldName, $options);
+        return $this->Form->control($fieldName, $options);
     }
 
     /**
@@ -70,7 +70,10 @@ class VatNumberCheckHelper extends Helper
     protected function _addJs()
     {
         $checkUrl = $this->Url->build([
-            'plugin' => 'VatNumberCheck', 'controller' => 'VatNumberChecks', 'action' => 'check', '_ext' => 'json'
+            'plugin' => 'VatNumberCheck',
+            'controller' => 'VatNumberChecks',
+            'action' => 'check',
+            '_ext' => 'json',
         ]);
         $checkImages = [
             'ok' => $this->Url->build('/vat_number_check/img/ok.png'),
@@ -95,7 +98,9 @@ class VatNumberCheckHelper extends Helper
         ";
 
         $this->Html->script([
-            'VatNumberCheck.jquery.min', 'VatNumberCheck.klass.min', 'VatNumberCheck.vat_number_check'
+            'VatNumberCheck.jquery.min',
+            'VatNumberCheck.klass.min',
+            'VatNumberCheck.vat_number_check',
         ], ['inline' => false, 'once' => true]);
         $this->Html->scriptBlock($script, ['inline' => false]);
     }

@@ -1,7 +1,8 @@
 <?php
 namespace VatNumberCheck\Test\TestCase\Controller;
 
-use Cake\TestSuite\IntegrationTestCase;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
 use VatNumberCheck\Utility\Model\VatNumberCheck;
 
 /**
@@ -9,11 +10,14 @@ use VatNumberCheck\Utility\Model\VatNumberCheck;
  *
  * @property \VatNumberCheck\Controller\VatNumberChecksController $VatNumberChecks
  */
-class VatNumberChecksControllerTest extends IntegrationTestCase
+class VatNumberChecksControllerTest extends TestCase
 {
+    use IntegrationTestTrait {
+        controllerSpy as traitControllerSpy;
+    }
 
     /**
-     * Fixtures.
+     * Fixtures
      *
      * @var array
      */
@@ -27,10 +31,15 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
     public function setUp()
     {
         parent::setUp();
-
-        $this->enableCsrfToken();
-        $this->enableSecurityToken();
+        $this->useHttpServer(true);
     }
+
+    /**
+     * The URL to call in the tests of `check`
+     *
+     * @var string
+     */
+    const CHECK_VAT_URL = '/vat_number_check/vat_number_checks/check.json';
 
     /**
      * Tests `/vat_number_check/vat_number_checks/check.json`.
@@ -42,12 +51,12 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
     public function testCheckPostCorrectVat()
     {
         $data = ['vatNumber' => 'NL820345672B01'];
-        $this->post('/vat_number_check/vat_number_checks/check.json', $data);
+        $this->post(static::CHECK_VAT_URL, $data);
 
         $expected = array_merge($data, ['status' => 'ok']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -61,12 +70,12 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
     public function testCheckGet()
     {
         $data = ['vatNumber' => ''];
-        $this->get('/vat_number_check/vat_number_checks/check.json', $data);
+        $this->get(static::CHECK_VAT_URL, $data);
 
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -80,12 +89,12 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
     public function testCheckPostIncorrectVat()
     {
         $data = ['vatNumber' => 'NL820345672B02'];
-        $this->post('/vat_number_check/vat_number_checks/check.json', $data);
+        $this->post(static::CHECK_VAT_URL, $data);
 
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseOk();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(200);
     }
 
@@ -102,12 +111,12 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
         $this->configRequest(['environment' => ['USE_MOCKED_GET_URL_CONTENT' => true]]);
 
         $data = ['vatNumber' => 'NL820345672B01'];
-        $this->post('/vat_number_check/vat_number_checks/check.json', $data);
+        $this->post(static::CHECK_VAT_URL, $data);
 
         $expected = array_merge($data, ['status' => 'failure']);
 
         $this->assertResponseFailure();
-        $this->assertEquals($expected, json_decode($this->_response->body(), true));
+        $this->assertEquals($expected, json_decode($this->_response->getBody(), true));
         $this->assertResponseCode(503);
     }
 
@@ -117,10 +126,10 @@ class VatNumberChecksControllerTest extends IntegrationTestCase
      */
     public function controllerSpy($event, $controller = null)
     {
-        parent::controllerSpy($event, $controller);
+        $this->traitControllerSpy($event, $controller);
 
         if (isset($this->_controller)) {
-            if ($this->_controller->request->env('USE_MOCKED_GET_URL_CONTENT')) {
+            if ($this->_controller->request->getEnv('USE_MOCKED_GET_URL_CONTENT')) {
                 $VatNumberCheck = $this->getMockBuilder(VatNumberCheck::class)->setMethods(['getUrlContent'])->getMock();
                 $VatNumberCheck->expects($this->any())->method('getUrlContent')->willReturn(false);
 

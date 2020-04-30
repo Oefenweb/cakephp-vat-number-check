@@ -75,7 +75,7 @@ class VatNumberCheck extends App
             if ($response->isOk()) {
                 return $response->getStringBody();
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
         }
 
         return false;
